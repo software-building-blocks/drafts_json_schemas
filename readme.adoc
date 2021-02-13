@@ -1,0 +1,5 @@
+= Drafts Json Schemas
+
+host the full schema files.
+
+To be used as a submodule in other projects.

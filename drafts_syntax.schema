@@ -1,0 +1,8 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "http://example.com/example.json",
+    "title": "Drafts: Schema For Custom Syntax (v2021.01)",
+    "description": "Schema .TODO",
+    "type": "object",
+    
+}
