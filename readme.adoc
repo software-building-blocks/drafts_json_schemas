@@ -3,3 +3,9 @@
 host the full schema files.
 
 To be used as a submodule in other projects.
+
+If `python3` and `jsonschema (v3.2.0)` is available use:
+
+```shell
+jsonschema -i ../../adoc/Asciidoc.draftsSyntax ./drafts_syntax.schema                          ─╯
+```
