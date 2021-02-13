@@ -4,5 +4,1141 @@
     "title": "Drafts: Schema For Custom Syntax (v2021.01)",
     "description": "Schema .TODO",
     "type": "object",
-    
+    "required": [
+        "name",
+        "author",
+        "description",
+        "sampleText",
+        "scopeName",
+        "rangeExtensionType",
+        "fileExtensions",
+        "patterns",
+        "linkDefinitions",
+        "navigationPatterns",
+        "indentationPatterns",
+        "taskMarkDefinitions"
+    ],
+    "properties": {
+        "name": {
+            "$id": "#/properties/name",
+            "type": "string",
+            "title": "The name schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "asciidoc"
+            ]
+        },
+        "author": {
+            "$id": "#/properties/author",
+            "type": "string",
+            "title": "The author schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "andreas.felix.haeberle@gmail based on Markdown Syntax by Agile Tortoise, Inc."
+            ]
+        },
+        "description": {
+            "$id": "#/properties/description",
+            "type": "string",
+            "title": "The description schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "Basic Asciidoc syntax (v2021.00.01)"
+            ]
+        },
+        "sampleText": {
+            "$id": "#/properties/sampleText",
+            "type": "string",
+            "title": "The sampleText schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "= Asciidoc Syntax\n\nSupports **bold**, _italic_ and other Markdown syntax.\n\n* Lists\n* Lists\n\n> Quotations"
+            ]
+        },
+        "scopeName": {
+            "$id": "#/properties/scopeName",
+            "type": "string",
+            "title": "The scopeName schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": "",
+            "examples": [
+                "text.asciidoc"
+            ]
+        },
+        "rangeExtensionType": {
+            "$id": "#/properties/rangeExtensionType",
+            "type": "object",
+            "title": "The rangeExtensionType schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": {},
+            "examples": [
+                {
+                    "default": "lineExtended"
+                }
+            ],
+            "required": [
+                "default"
+            ],
+            "properties": {
+                "default": {
+                    "$id": "#/properties/rangeExtensionType/properties/default",
+                    "type": "string",
+                    "title": "The default schema",
+                    "description": "An explanation about the purpose of this instance.",
+                    "default": "",
+                    "examples": [
+                        "lineExtended"
+                    ]
+                }
+            },
+            "additionalProperties": true
+        },
+        "fileExtensions": {
+            "$id": "#/properties/fileExtensions",
+            "type": "array",
+            "title": "The fileExtensions schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": [],
+            "examples": [
+                [
+                    "asciidoc",
+                    "adoc"
+                ]
+            ],
+            "additionalItems": true,
+            "items": {
+                "$id": "#/properties/fileExtensions/items",
+                "anyOf": [
+                    {
+                        "$id": "#/properties/fileExtensions/items/anyOf/0",
+                        "type": "string",
+                        "title": "The first anyOf schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": "",
+                        "examples": [
+                            "asciidoc",
+                            "adoc"
+                        ]
+                    }
+                ]
+            }
+        },
+        "patterns": {
+            "$id": "#/properties/patterns",
+            "type": "array",
+            "title": "The patterns schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": [],
+            "examples": [
+                [
+                    {
+                        "match": "^(=+) ([^\\n]+)$",
+                        "exclusive": true,
+                        "comment": "TEST: adoc header like === (todo...keep in mind the example block)",
+                        "captures": {
+                            "1": {
+                                "scope": "markup"
+                            },
+                            "2": {
+                                "scope": "text.header, color.accent01"
+                            }
+                        }
+                    },
+                    {
+                        "match": "^(<{3,})",
+                        "exclusive": true,
+                        "comment": "TEST: adoc horizontal rule like <<< ",
+                        "captures": {
+                            "1": {
+                                "scope": "markup"
+                            }
+                        }
+                    }
+                ]
+            ],
+            "additionalItems": true,
+            "items": {
+                "$id": "#/properties/patterns/items",
+                "anyOf": [
+                    {
+                        "$id": "#/properties/patterns/items/anyOf/0",
+                        "type": "object",
+                        "title": "The first anyOf schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": {},
+                        "examples": [
+                            {
+                                "match": "^(=+) ([^\\n]+)$",
+                                "exclusive": true,
+                                "comment": "TEST: adoc header like === (todo...keep in mind the example block)",
+                                "captures": {
+                                    "1": {
+                                        "scope": "markup"
+                                    },
+                                    "2": {
+                                        "scope": "text.header, color.accent01"
+                                    }
+                                }
+                            }
+                        ],
+                        "required": [
+                            "match",
+                            "exclusive",
+                            "comment",
+                            "captures"
+                        ],
+                        "properties": {
+                            "match": {
+                                "$id": "#/properties/patterns/items/anyOf/0/properties/match",
+                                "type": "string",
+                                "title": "The match schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "^(=+) ([^\\n]+)$"
+                                ]
+                            },
+                            "exclusive": {
+                                "$id": "#/properties/patterns/items/anyOf/0/properties/exclusive",
+                                "type": "boolean",
+                                "title": "The exclusive schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": false,
+                                "examples": [
+                                    true
+                                ]
+                            },
+                            "comment": {
+                                "$id": "#/properties/patterns/items/anyOf/0/properties/comment",
+                                "type": "string",
+                                "title": "The comment schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "TEST: adoc header like === (todo...keep in mind the example block)"
+                                ]
+                            },
+                            "captures": {
+                                "$id": "#/properties/patterns/items/anyOf/0/properties/captures",
+                                "type": "object",
+                                "title": "The captures schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": {},
+                                "examples": [
+                                    {
+                                        "1": {
+                                            "scope": "markup"
+                                        },
+                                        "2": {
+                                            "scope": "text.header, color.accent01"
+                                        }
+                                    }
+                                ],
+                                "required": [
+                                    "1",
+                                    "2"
+                                ],
+                                "properties": {
+                                    "1": {
+                                        "$id": "#/properties/patterns/items/anyOf/0/properties/captures/properties/1",
+                                        "type": "object",
+                                        "title": "The 1 schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": {},
+                                        "examples": [
+                                            {
+                                                "scope": "markup"
+                                            }
+                                        ],
+                                        "required": [
+                                            "scope"
+                                        ],
+                                        "properties": {
+                                            "scope": {
+                                                "$id": "#/properties/patterns/items/anyOf/0/properties/captures/properties/1/properties/scope",
+                                                "type": "string",
+                                                "title": "The scope schema",
+                                                "description": "An explanation about the purpose of this instance.",
+                                                "default": "",
+                                                "examples": [
+                                                    "markup"
+                                                ]
+                                            }
+                                        },
+                                        "additionalProperties": true
+                                    },
+                                    "2": {
+                                        "$id": "#/properties/patterns/items/anyOf/0/properties/captures/properties/2",
+                                        "type": "object",
+                                        "title": "The 2 schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": {},
+                                        "examples": [
+                                            {
+                                                "scope": "text.header, color.accent01"
+                                            }
+                                        ],
+                                        "required": [
+                                            "scope"
+                                        ],
+                                        "properties": {
+                                            "scope": {
+                                                "$id": "#/properties/patterns/items/anyOf/0/properties/captures/properties/2/properties/scope",
+                                                "type": "string",
+                                                "title": "The scope schema",
+                                                "description": "An explanation about the purpose of this instance.",
+                                                "default": "",
+                                                "examples": [
+                                                    "text.header, color.accent01"
+                                                ]
+                                            }
+                                        },
+                                        "additionalProperties": true
+                                    }
+                                },
+                                "additionalProperties": true
+                            }
+                        },
+                        "additionalProperties": true
+                    }
+                ]
+            }
+        },
+        "linkDefinitions": {
+            "$id": "#/properties/linkDefinitions",
+            "type": "array",
+            "title": "The linkDefinitions schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": [],
+            "examples": [
+                [
+                    {
+                        "match": "(\\[\\[)(((d|u|s|w|google|wikipedia|bear|url):)?([^\\[]+?))(\\]\\])",
+                        "templates": {
+                            "": "drafts://open?title=[[value]]&allowCreate=true",
+                            "google": "https://www.google.com/search?q=[[value]]",
+                            "wikipedia": "https://en.wikipedia.org/wiki/[[value]]",
+                            "u": "drafts://open?uuid=[[value]]",
+                            "d": "drafts://open?title=[[value]]&allowCreate=true",
+                            "bear": "bear://x-callback-url/open-note?title=[[value]]",
+                            "w": "drafts://workspace?name=[[value]]",
+                            "s": "drafts://quickSearch?query=[[value]]",
+                            "url": "[[value_unencoded]]"
+                        },
+                        "enabled": true,
+                        "captures": {
+                            "value": "5",
+                            "key": "4",
+                            "prefix": "1",
+                            "suffix": "6",
+                            "link": "2"
+                        },
+                        "scopes": {
+                            "value": "text.italic",
+                            "key": "text.bold",
+                            "prefix": "markup",
+                            "suffix": "markup"
+                        }
+                    }
+                ]
+            ],
+            "additionalItems": true,
+            "items": {
+                "$id": "#/properties/linkDefinitions/items",
+                "anyOf": [
+                    {
+                        "$id": "#/properties/linkDefinitions/items/anyOf/0",
+                        "type": "object",
+                        "title": "The first anyOf schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": {},
+                        "examples": [
+                            {
+                                "match": "(\\[\\[)(((d|u|s|w|google|wikipedia|bear|url):)?([^\\[]+?))(\\]\\])",
+                                "templates": {
+                                    "": "drafts://open?title=[[value]]&allowCreate=true",
+                                    "google": "https://www.google.com/search?q=[[value]]",
+                                    "wikipedia": "https://en.wikipedia.org/wiki/[[value]]",
+                                    "u": "drafts://open?uuid=[[value]]",
+                                    "d": "drafts://open?title=[[value]]&allowCreate=true",
+                                    "bear": "bear://x-callback-url/open-note?title=[[value]]",
+                                    "w": "drafts://workspace?name=[[value]]",
+                                    "s": "drafts://quickSearch?query=[[value]]",
+                                    "url": "[[value_unencoded]]"
+                                },
+                                "enabled": true,
+                                "captures": {
+                                    "value": "5",
+                                    "key": "4",
+                                    "prefix": "1",
+                                    "suffix": "6",
+                                    "link": "2"
+                                },
+                                "scopes": {
+                                    "value": "text.italic",
+                                    "key": "text.bold",
+                                    "prefix": "markup",
+                                    "suffix": "markup"
+                                }
+                            }
+                        ],
+                        "required": [
+                            "match",
+                            "templates",
+                            "enabled",
+                            "captures",
+                            "scopes"
+                        ],
+                        "properties": {
+                            "match": {
+                                "$id": "#/properties/linkDefinitions/items/anyOf/0/properties/match",
+                                "type": "string",
+                                "title": "The match schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "(\\[\\[)(((d|u|s|w|google|wikipedia|bear|url):)?([^\\[]+?))(\\]\\])"
+                                ]
+                            },
+                            "templates": {
+                                "$id": "#/properties/linkDefinitions/items/anyOf/0/properties/templates",
+                                "type": "object",
+                                "title": "The templates schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": {},
+                                "examples": [
+                                    {
+                                        "": "drafts://open?title=[[value]]&allowCreate=true",
+                                        "google": "https://www.google.com/search?q=[[value]]",
+                                        "wikipedia": "https://en.wikipedia.org/wiki/[[value]]",
+                                        "u": "drafts://open?uuid=[[value]]",
+                                        "d": "drafts://open?title=[[value]]&allowCreate=true",
+                                        "bear": "bear://x-callback-url/open-note?title=[[value]]",
+                                        "w": "drafts://workspace?name=[[value]]",
+                                        "s": "drafts://quickSearch?query=[[value]]",
+                                        "url": "[[value_unencoded]]"
+                                    }
+                                ],
+                                "required": [
+                                    "",
+                                    "google",
+                                    "wikipedia",
+                                    "u",
+                                    "d",
+                                    "bear",
+                                    "w",
+                                    "s",
+                                    "url"
+                                ],
+                                "properties": {
+                                    "": {
+                                        "$id": "#/properties/linkDefinitions/items/anyOf/0/properties/templates/properties/",
+                                        "type": "string",
+                                        "title": "The  schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": "",
+                                        "examples": [
+                                            "drafts://open?title=[[value]]&allowCreate=true"
+                                        ]
+                                    },
+                                    "google": {
+                                        "$id": "#/properties/linkDefinitions/items/anyOf/0/properties/templates/properties/google",
+                                        "type": "string",
+                                        "title": "The google schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": "",
+                                        "examples": [
+                                            "https://www.google.com/search?q=[[value]]"
+                                        ]
+                                    },
+                                    "wikipedia": {
+                                        "$id": "#/properties/linkDefinitions/items/anyOf/0/properties/templates/properties/wikipedia",
+                                        "type": "string",
+                                        "title": "The wikipedia schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": "",
+                                        "examples": [
+                                            "https://en.wikipedia.org/wiki/[[value]]"
+                                        ]
+                                    },
+                                    "u": {
+                                        "$id": "#/properties/linkDefinitions/items/anyOf/0/properties/templates/properties/u",
+                                        "type": "string",
+                                        "title": "The u schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": "",
+                                        "examples": [
+                                            "drafts://open?uuid=[[value]]"
+                                        ]
+                                    },
+                                    "d": {
+                                        "$id": "#/properties/linkDefinitions/items/anyOf/0/properties/templates/properties/d",
+                                        "type": "string",
+                                        "title": "The d schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": "",
+                                        "examples": [
+                                            "drafts://open?title=[[value]]&allowCreate=true"
+                                        ]
+                                    },
+                                    "bear": {
+                                        "$id": "#/properties/linkDefinitions/items/anyOf/0/properties/templates/properties/bear",
+                                        "type": "string",
+                                        "title": "The bear schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": "",
+                                        "examples": [
+                                            "bear://x-callback-url/open-note?title=[[value]]"
+                                        ]
+                                    },
+                                    "w": {
+                                        "$id": "#/properties/linkDefinitions/items/anyOf/0/properties/templates/properties/w",
+                                        "type": "string",
+                                        "title": "The w schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": "",
+                                        "examples": [
+                                            "drafts://workspace?name=[[value]]"
+                                        ]
+                                    },
+                                    "s": {
+                                        "$id": "#/properties/linkDefinitions/items/anyOf/0/properties/templates/properties/s",
+                                        "type": "string",
+                                        "title": "The s schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": "",
+                                        "examples": [
+                                            "drafts://quickSearch?query=[[value]]"
+                                        ]
+                                    },
+                                    "url": {
+                                        "$id": "#/properties/linkDefinitions/items/anyOf/0/properties/templates/properties/url",
+                                        "type": "string",
+                                        "title": "The url schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": "",
+                                        "examples": [
+                                            "[[value_unencoded]]"
+                                        ]
+                                    }
+                                },
+                                "additionalProperties": true
+                            },
+                            "enabled": {
+                                "$id": "#/properties/linkDefinitions/items/anyOf/0/properties/enabled",
+                                "type": "boolean",
+                                "title": "The enabled schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": false,
+                                "examples": [
+                                    true
+                                ]
+                            },
+                            "captures": {
+                                "$id": "#/properties/linkDefinitions/items/anyOf/0/properties/captures",
+                                "type": "object",
+                                "title": "The captures schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": {},
+                                "examples": [
+                                    {
+                                        "value": "5",
+                                        "key": "4",
+                                        "prefix": "1",
+                                        "suffix": "6",
+                                        "link": "2"
+                                    }
+                                ],
+                                "required": [
+                                    "value",
+                                    "key",
+                                    "prefix",
+                                    "suffix",
+                                    "link"
+                                ],
+                                "properties": {
+                                    "value": {
+                                        "$id": "#/properties/linkDefinitions/items/anyOf/0/properties/captures/properties/value",
+                                        "type": "string",
+                                        "title": "The value schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": "",
+                                        "examples": [
+                                            "5"
+                                        ]
+                                    },
+                                    "key": {
+                                        "$id": "#/properties/linkDefinitions/items/anyOf/0/properties/captures/properties/key",
+                                        "type": "string",
+                                        "title": "The key schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": "",
+                                        "examples": [
+                                            "4"
+                                        ]
+                                    },
+                                    "prefix": {
+                                        "$id": "#/properties/linkDefinitions/items/anyOf/0/properties/captures/properties/prefix",
+                                        "type": "string",
+                                        "title": "The prefix schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": "",
+                                        "examples": [
+                                            "1"
+                                        ]
+                                    },
+                                    "suffix": {
+                                        "$id": "#/properties/linkDefinitions/items/anyOf/0/properties/captures/properties/suffix",
+                                        "type": "string",
+                                        "title": "The suffix schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": "",
+                                        "examples": [
+                                            "6"
+                                        ]
+                                    },
+                                    "link": {
+                                        "$id": "#/properties/linkDefinitions/items/anyOf/0/properties/captures/properties/link",
+                                        "type": "string",
+                                        "title": "The link schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": "",
+                                        "examples": [
+                                            "2"
+                                        ]
+                                    }
+                                },
+                                "additionalProperties": true
+                            },
+                            "scopes": {
+                                "$id": "#/properties/linkDefinitions/items/anyOf/0/properties/scopes",
+                                "type": "object",
+                                "title": "The scopes schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": {},
+                                "examples": [
+                                    {
+                                        "value": "text.italic",
+                                        "key": "text.bold",
+                                        "prefix": "markup",
+                                        "suffix": "markup"
+                                    }
+                                ],
+                                "required": [
+                                    "value",
+                                    "key",
+                                    "prefix",
+                                    "suffix"
+                                ],
+                                "properties": {
+                                    "value": {
+                                        "$id": "#/properties/linkDefinitions/items/anyOf/0/properties/scopes/properties/value",
+                                        "type": "string",
+                                        "title": "The value schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": "",
+                                        "examples": [
+                                            "text.italic"
+                                        ]
+                                    },
+                                    "key": {
+                                        "$id": "#/properties/linkDefinitions/items/anyOf/0/properties/scopes/properties/key",
+                                        "type": "string",
+                                        "title": "The key schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": "",
+                                        "examples": [
+                                            "text.bold"
+                                        ]
+                                    },
+                                    "prefix": {
+                                        "$id": "#/properties/linkDefinitions/items/anyOf/0/properties/scopes/properties/prefix",
+                                        "type": "string",
+                                        "title": "The prefix schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": "",
+                                        "examples": [
+                                            "markup"
+                                        ]
+                                    },
+                                    "suffix": {
+                                        "$id": "#/properties/linkDefinitions/items/anyOf/0/properties/scopes/properties/suffix",
+                                        "type": "string",
+                                        "title": "The suffix schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": "",
+                                        "examples": [
+                                            "markup"
+                                        ]
+                                    }
+                                },
+                                "additionalProperties": true
+                            }
+                        },
+                        "additionalProperties": true
+                    }
+                ]
+            }
+        },
+        "navigationPatterns": {
+            "$id": "#/properties/navigationPatterns",
+            "type": "array",
+            "title": "The navigationPatterns schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": [],
+            "examples": [
+                [
+                    {
+                        "match": "^= (.*)$",
+                        "rangeCapture": "0",
+                        "comment": "Document Titel =",
+                        "prefix": "Title",
+                        "labelCapture": "1",
+                        "identifierCapture": "1",
+                        "level": 0
+                    },
+                    {
+                        "match": "^== (.*)$",
+                        "comment": "H1 level headers with ==",
+                        "prefix": "H1",
+                        "rangeCapture": "0",
+                        "labelCapture": "1",
+                        "identifierCapture": "1",
+                        "level": 1
+                    }
+                ]
+            ],
+            "additionalItems": true,
+            "items": {
+                "$id": "#/properties/navigationPatterns/items",
+                "anyOf": [
+                    {
+                        "$id": "#/properties/navigationPatterns/items/anyOf/0",
+                        "type": "object",
+                        "title": "The first anyOf schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": {},
+                        "examples": [
+                            {
+                                "match": "^= (.*)$",
+                                "rangeCapture": "0",
+                                "comment": "Document Titel =",
+                                "prefix": "Title",
+                                "labelCapture": "1",
+                                "identifierCapture": "1",
+                                "level": 0
+                            }
+                        ],
+                        "required": [
+                            "match",
+                            "rangeCapture",
+                            "comment",
+                            "prefix",
+                            "labelCapture",
+                            "identifierCapture",
+                            "level"
+                        ],
+                        "properties": {
+                            "match": {
+                                "$id": "#/properties/navigationPatterns/items/anyOf/0/properties/match",
+                                "type": "string",
+                                "title": "The match schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "^= (.*)$"
+                                ]
+                            },
+                            "rangeCapture": {
+                                "$id": "#/properties/navigationPatterns/items/anyOf/0/properties/rangeCapture",
+                                "type": "string",
+                                "title": "The rangeCapture schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "0"
+                                ]
+                            },
+                            "comment": {
+                                "$id": "#/properties/navigationPatterns/items/anyOf/0/properties/comment",
+                                "type": "string",
+                                "title": "The comment schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "Document Titel ="
+                                ]
+                            },
+                            "prefix": {
+                                "$id": "#/properties/navigationPatterns/items/anyOf/0/properties/prefix",
+                                "type": "string",
+                                "title": "The prefix schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "Title"
+                                ]
+                            },
+                            "labelCapture": {
+                                "$id": "#/properties/navigationPatterns/items/anyOf/0/properties/labelCapture",
+                                "type": "string",
+                                "title": "The labelCapture schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "1"
+                                ]
+                            },
+                            "identifierCapture": {
+                                "$id": "#/properties/navigationPatterns/items/anyOf/0/properties/identifierCapture",
+                                "type": "string",
+                                "title": "The identifierCapture schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "1"
+                                ]
+                            },
+                            "level": {
+                                "$id": "#/properties/navigationPatterns/items/anyOf/0/properties/level",
+                                "type": "integer",
+                                "title": "The level schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": 0,
+                                "examples": [
+                                    0
+                                ]
+                            }
+                        },
+                        "additionalProperties": true
+                    }
+                ]
+            }
+        },
+        "indentationPatterns": {
+            "$id": "#/properties/indentationPatterns",
+            "type": "array",
+            "title": "The indentationPatterns schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": [],
+            "examples": [
+                [
+                    {
+                        "match": "(^\\h*\\* |^\\h*\\- |^\\h*\\+ |^\\h*\\d+\\. |^\\h*>[> ]+).*",
+                        "exclusive": true,
+                        "comment": "Indent Markdown lists and blockquotes",
+                        "captures": {
+                            "1": {
+                                "scope": "style.indentString"
+                            }
+                        }
+                    }
+                ]
+            ],
+            "additionalItems": true,
+            "items": {
+                "$id": "#/properties/indentationPatterns/items",
+                "anyOf": [
+                    {
+                        "$id": "#/properties/indentationPatterns/items/anyOf/0",
+                        "type": "object",
+                        "title": "The first anyOf schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": {},
+                        "examples": [
+                            {
+                                "match": "(^\\h*\\* |^\\h*\\- |^\\h*\\+ |^\\h*\\d+\\. |^\\h*>[> ]+).*",
+                                "exclusive": true,
+                                "comment": "Indent Markdown lists and blockquotes",
+                                "captures": {
+                                    "1": {
+                                        "scope": "style.indentString"
+                                    }
+                                }
+                            }
+                        ],
+                        "required": [
+                            "match",
+                            "exclusive",
+                            "comment",
+                            "captures"
+                        ],
+                        "properties": {
+                            "match": {
+                                "$id": "#/properties/indentationPatterns/items/anyOf/0/properties/match",
+                                "type": "string",
+                                "title": "The match schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "(^\\h*\\* |^\\h*\\- |^\\h*\\+ |^\\h*\\d+\\. |^\\h*>[> ]+).*"
+                                ]
+                            },
+                            "exclusive": {
+                                "$id": "#/properties/indentationPatterns/items/anyOf/0/properties/exclusive",
+                                "type": "boolean",
+                                "title": "The exclusive schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": false,
+                                "examples": [
+                                    true
+                                ]
+                            },
+                            "comment": {
+                                "$id": "#/properties/indentationPatterns/items/anyOf/0/properties/comment",
+                                "type": "string",
+                                "title": "The comment schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "Indent Markdown lists and blockquotes"
+                                ]
+                            },
+                            "captures": {
+                                "$id": "#/properties/indentationPatterns/items/anyOf/0/properties/captures",
+                                "type": "object",
+                                "title": "The captures schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": {},
+                                "examples": [],
+                                "required": [
+                                    "1"
+                                ],
+                                "properties": {
+                                    "1": {
+                                        "$id": "#/properties/indentationPatterns/items/anyOf/0/properties/captures/properties/1",
+                                        "type": "object",
+                                        "title": "The 1 schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": {},
+                                        "examples": [
+                                            {
+                                                "scope": "style.indentString"
+                                            }
+                                        ],
+                                        "required": [
+                                            "scope"
+                                        ],
+                                        "properties": {
+                                            "scope": {
+                                                "$id": "#/properties/indentationPatterns/items/anyOf/0/properties/captures/properties/1/properties/scope",
+                                                "type": "string",
+                                                "title": "The scope schema",
+                                                "description": "An explanation about the purpose of this instance.",
+                                                "default": "",
+                                                "examples": [
+                                                    "style.indentString"
+                                                ]
+                                            }
+                                        },
+                                        "additionalProperties": true
+                                    }
+                                },
+                                "additionalProperties": true
+                            }
+                        },
+                        "additionalProperties": true
+                    }
+                ]
+            }
+        },
+        "taskMarkDefinitions": {
+            "$id": "#/properties/taskMarkDefinitions",
+            "type": "array",
+            "title": "The taskMarkDefinitions schema",
+            "description": "An explanation about the purpose of this instance.",
+            "default": [],
+            "examples": [
+                [
+                    {
+                        "match": "(\\[[ xX]\\])",
+                        "states": [
+                            "[ ]",
+                            "[x]"
+                        ],
+                        "enabled": true,
+                        "rangeType": "task",
+                        "captures": {
+                            "state": "1",
+                            "interactive": "1"
+                        },
+                        "scopes": {
+                            "interactive": "text.monospace.bold"
+                        }
+                    }
+                ]
+            ],
+            "additionalItems": true,
+            "items": {
+                "$id": "#/properties/taskMarkDefinitions/items",
+                "anyOf": [
+                    {
+                        "$id": "#/properties/taskMarkDefinitions/items/anyOf/0",
+                        "type": "object",
+                        "title": "The first anyOf schema",
+                        "description": "An explanation about the purpose of this instance.",
+                        "default": {},
+                        "examples": [
+                            {
+                                "match": "(\\[[ xX]\\])",
+                                "states": [
+                                    "[ ]",
+                                    "[x]"
+                                ],
+                                "enabled": true,
+                                "rangeType": "task",
+                                "captures": {
+                                    "state": "1",
+                                    "interactive": "1"
+                                },
+                                "scopes": {
+                                    "interactive": "text.monospace.bold"
+                                }
+                            }
+                        ],
+                        "required": [
+                            "match",
+                            "states",
+                            "enabled",
+                            "rangeType",
+                            "captures",
+                            "scopes"
+                        ],
+                        "properties": {
+                            "match": {
+                                "$id": "#/properties/taskMarkDefinitions/items/anyOf/0/properties/match",
+                                "type": "string",
+                                "title": "The match schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "(\\[[ xX]\\])"
+                                ]
+                            },
+                            "states": {
+                                "$id": "#/properties/taskMarkDefinitions/items/anyOf/0/properties/states",
+                                "type": "array",
+                                "title": "The states schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": [],
+                                "examples": [
+                                    [
+                                        "[ ]",
+                                        "[x]"
+                                    ]
+                                ],
+                                "additionalItems": true,
+                                "items": {
+                                    "$id": "#/properties/taskMarkDefinitions/items/anyOf/0/properties/states/items",
+                                    "anyOf": [
+                                        {
+                                            "$id": "#/properties/taskMarkDefinitions/items/anyOf/0/properties/states/items/anyOf/0",
+                                            "type": "string",
+                                            "title": "The first anyOf schema",
+                                            "description": "An explanation about the purpose of this instance.",
+                                            "default": "",
+                                            "examples": [
+                                                "[ ]",
+                                                "[x]"
+                                            ]
+                                        }
+                                    ]
+                                }
+                            },
+                            "enabled": {
+                                "$id": "#/properties/taskMarkDefinitions/items/anyOf/0/properties/enabled",
+                                "type": "boolean",
+                                "title": "The enabled schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": false,
+                                "examples": [
+                                    true
+                                ]
+                            },
+                            "rangeType": {
+                                "$id": "#/properties/taskMarkDefinitions/items/anyOf/0/properties/rangeType",
+                                "type": "string",
+                                "title": "The rangeType schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": "",
+                                "examples": [
+                                    "task"
+                                ]
+                            },
+                            "captures": {
+                                "$id": "#/properties/taskMarkDefinitions/items/anyOf/0/properties/captures",
+                                "type": "object",
+                                "title": "The captures schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": {},
+                                "examples": [
+                                    {
+                                        "state": "1",
+                                        "interactive": "1"
+                                    }
+                                ],
+                                "required": [
+                                    "state",
+                                    "interactive"
+                                ],
+                                "properties": {
+                                    "state": {
+                                        "$id": "#/properties/taskMarkDefinitions/items/anyOf/0/properties/captures/properties/state",
+                                        "type": "string",
+                                        "title": "The state schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": "",
+                                        "examples": [
+                                            "1"
+                                        ]
+                                    },
+                                    "interactive": {
+                                        "$id": "#/properties/taskMarkDefinitions/items/anyOf/0/properties/captures/properties/interactive",
+                                        "type": "string",
+                                        "title": "The interactive schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": "",
+                                        "examples": [
+                                            "1"
+                                        ]
+                                    }
+                                },
+                                "additionalProperties": true
+                            },
+                            "scopes": {
+                                "$id": "#/properties/taskMarkDefinitions/items/anyOf/0/properties/scopes",
+                                "type": "object",
+                                "title": "The scopes schema",
+                                "description": "An explanation about the purpose of this instance.",
+                                "default": {},
+                                "examples": [],
+                                "required": [
+                                    "interactive"
+                                ],
+                                "properties": {
+                                    "interactive": {
+                                        "$id": "#/properties/taskMarkDefinitions/items/anyOf/0/properties/scopes/properties/interactive",
+                                        "type": "string",
+                                        "title": "The interactive schema",
+                                        "description": "An explanation about the purpose of this instance.",
+                                        "default": "",
+                                        "examples": [
+                                            "text.monospace.bold"
+                                        ]
+                                    }
+                                },
+                                "additionalProperties": true
+                            }
+                        },
+                        "additionalProperties": true
+                    }
+                ]
+            }
+        }
+    },
+    "additionalProperties": true
 }
