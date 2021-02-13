@@ -1,149 +1,20 @@
 {
-    "$schema": "http://json-schema.org/draft-07/schema",
-    "$id": "https://raw.githubusercontent.com/software-building-blocks/drafts_json_schemas/master/drafts_syntax.schema",
-    "title": "Drafts: Schema For Custom Syntax (v2021.01)",
-    "description": "Schema .TODO",
-    "type": "object",
-    "required": [
-        "name",
-        "author",
-        "description",
-        "sampleText",
-        "scopeName",
-        "patterns",
-        "fileExtensions",
-        "indentationPatterns",
-        "linkDefinitions",
-        "navigationPatterns",
-        "rangeExtensionType",
-        "taskMarkDefinitions"
-    ],
     "properties": {
-        "name": {
-            "$id": "#/properties/name",
-            "description": "the name of the syntax.",
-            "type": "string",
-            "title": "The name of the drafts syntax schema"
-        },
-        "author": {
-            "$id": "#/properties/author",
-            "type": "string",
-            "title": "The author of the drafts syntax schema",
-            "description": "add your name, handle or email here.",
-        },
-        "version": {
-            "$id": "#/properties/version",
-            "type": "string",
-            "title": "The version of the drafts syntax schema",
-            "description": "manage different versions with this entry.",
-        },
-        "description": {
-            "$id": "#/properties/description",
-            "type": "string",
-            "title": "The description of the drafts syntax schema",
-            "description": "An explanation about the purpose of this instance.",
-        },
-        "sampleText": {
-            "$id": "#/properties/sampleText",
-            "type": "string",
-            "title": "text to be displayed formated in the GUI.",
-            "description": "used in GUI to apply schema."  
-        },
-        "scopeName": {
-            "$id": "#/properties/scopeName",
-            "type": "string",
-            "title": "The unique scopeName schema",
-            "description": "An explanation about the purpose of this instance.",
-            "examples": [
-                "text.asciidoc"
-            ]
-        },
-        "rangeExtensionType": {
-            "$id": "#/properties/rangeExtensionType",
-            "type": "object",
-            "title": "The rangeExtensionType schema",
-            "description": "An explanation about the purpose of this instance.",
-            "default": {},
-            "examples": [
-                {
-                    "default": "lineExtended"
-                }
-            ],
-            "required": [
-                "default"
-            ],
-            "properties": {
-                "default": {
-                    "$id": "#/properties/rangeExtensionType/properties/default",
-                    "type": "string",
-                    "title": "The default schema",
-                    "description": "An explanation about the purpose of this instance.",
-                    "default": "",
-                    "examples": [
-                        "lineExtended"
-                    ]
-                }
-            },
-            "additionalProperties": true
-        },
-        "fileExtensions": {
-            "$id": "#/properties/fileExtensions",
+        "indentationPatterns": {
+            "$id": "#/properties/indentationPatterns",
             "type": "array",
-            "title": "The fileExtensions schema",
-            "description": "An explanation about the purpose of this instance.",
-            "default": [],
-            "examples": [
-                [
-                    "asciidoc",
-                    "adoc"
-                ]
-            ],
-            "additionalItems": true,
-            "items": {
-                "$id": "#/properties/fileExtensions/items",
-                "anyOf": [
-                    {
-                        "$id": "#/properties/fileExtensions/items/anyOf/0",
-                        "type": "string",
-                        "title": "The first anyOf schema",
-                        "description": "An explanation about the purpose of this instance.",
-                        "default": "",
-                        "examples": [
-                            "asciidoc",
-                            "adoc"
-                        ]
-                    }
-                ]
-            }
-        },
-        "patterns": {
-            "$id": "#/properties/patterns",
-            "type": "array",
-            "title": "The patterns schema",
+            "title": "The indentationPatterns schema",
             "description": "An explanation about the purpose of this instance.",
             "default": [],
             "examples": [
                 [
                     {
-                        "match": "^(=+) ([^\\n]+)$",
+                        "match": "(^\\h*\\* |^\\h*\\- |^\\h*\\+ |^\\h*\\d+\\. |^\\h*>[> ]+).*",
                         "exclusive": true,
-                        "comment": "TEST: adoc header like === (todo...keep in mind the example block)",
+                        "comment": "Indent Markdown lists and blockquotes",
                         "captures": {
                             "1": {
-                                "scope": "markup"
-                            },
-                            "2": {
-                                "scope": "text.header, color.accent01"
-                            }
-                        }
-                    },
-                    {
-                        "match": "^(<{3,})",
-                        "exclusive": true,
-                        "comment": "TEST: adoc horizontal rule like <<< ",
-                        "captures": {
-                            "1": {
-                                "scope": "markup"
+                                "scope": "style.indentString"
                             }
                         }
                     }
@@ -151,25 +22,22 @@
             ],
             "additionalItems": true,
             "items": {
-                "$id": "#/properties/patterns/items",
+                "$id": "#/properties/indentationPatterns/items",
                 "anyOf": [
                     {
-                        "$id": "#/properties/patterns/items/anyOf/0",
+                        "$id": "#/properties/indentationPatterns/items/anyOf/0",
                         "type": "object",
                         "title": "The first anyOf schema",
                         "description": "An explanation about the purpose of this instance.",
                         "default": {},
                         "examples": [
                             {
-                                "match": "^(=+) ([^\\n]+)$",
+                                "match": "(^\\h*\\* |^\\h*\\- |^\\h*\\+ |^\\h*\\d+\\. |^\\h*>[> ]+).*",
                                 "exclusive": true,
-                                "comment": "TEST: adoc header like === (todo...keep in mind the example block)",
+                                "comment": "Indent Markdown lists and blockquotes",
                                 "captures": {
                                     "1": {
-                                        "scope": "markup"
-                                    },
-                                    "2": {
-                                        "scope": "text.header, color.accent01"
+                                        "scope": "style.indentString"
                                     }
                                 }
                             }
@@ -182,17 +50,17 @@
                         ],
                         "properties": {
                             "match": {
-                                "$id": "#/properties/patterns/items/anyOf/0/properties/match",
+                                "$id": "#/properties/indentationPatterns/items/anyOf/0/properties/match",
                                 "type": "string",
                                 "title": "The match schema",
                                 "description": "An explanation about the purpose of this instance.",
                                 "default": "",
                                 "examples": [
-                                    "^(=+) ([^\\n]+)$"
+                                    "(^\\h*\\* |^\\h*\\- |^\\h*\\+ |^\\h*\\d+\\. |^\\h*>[> ]+).*"
                                 ]
                             },
                             "exclusive": {
-                                "$id": "#/properties/patterns/items/anyOf/0/properties/exclusive",
+                                "$id": "#/properties/indentationPatterns/items/anyOf/0/properties/exclusive",
                                 "type": "boolean",
                                 "title": "The exclusive schema",
                                 "description": "An explanation about the purpose of this instance.",
@@ -202,45 +70,35 @@
                                 ]
                             },
                             "comment": {
-                                "$id": "#/properties/patterns/items/anyOf/0/properties/comment",
+                                "$id": "#/properties/indentationPatterns/items/anyOf/0/properties/comment",
                                 "type": "string",
                                 "title": "The comment schema",
                                 "description": "An explanation about the purpose of this instance.",
                                 "default": "",
                                 "examples": [
-                                    "TEST: adoc header like === (todo...keep in mind the example block)"
+                                    "Indent Markdown lists and blockquotes"
                                 ]
                             },
                             "captures": {
-                                "$id": "#/properties/patterns/items/anyOf/0/properties/captures",
+                                "$id": "#/properties/indentationPatterns/items/anyOf/0/properties/captures",
                                 "type": "object",
                                 "title": "The captures schema",
                                 "description": "An explanation about the purpose of this instance.",
                                 "default": {},
-                                "examples": [
-                                    {
-                                        "1": {
-                                            "scope": "markup"
-                                        },
-                                        "2": {
-                                            "scope": "text.header, color.accent01"
-                                        }
-                                    }
-                                ],
+                                "examples": [],
                                 "required": [
-                                    "1",
-                                    "2"
+                                    "1"
                                 ],
                                 "properties": {
                                     "1": {
-                                        "$id": "#/properties/patterns/items/anyOf/0/properties/captures/properties/1",
+                                        "$id": "#/properties/indentationPatterns/items/anyOf/0/properties/captures/properties/1",
                                         "type": "object",
                                         "title": "The 1 schema",
                                         "description": "An explanation about the purpose of this instance.",
                                         "default": {},
                                         "examples": [
                                             {
-                                                "scope": "markup"
+                                                "scope": "style.indentString"
                                             }
                                         ],
                                         "required": [
@@ -248,41 +106,13 @@
                                         ],
                                         "properties": {
                                             "scope": {
-                                                "$id": "#/properties/patterns/items/anyOf/0/properties/captures/properties/1/properties/scope",
+                                                "$id": "#/properties/indentationPatterns/items/anyOf/0/properties/captures/properties/1/properties/scope",
                                                 "type": "string",
                                                 "title": "The scope schema",
                                                 "description": "An explanation about the purpose of this instance.",
                                                 "default": "",
                                                 "examples": [
-                                                    "markup"
-                                                ]
-                                            }
-                                        },
-                                        "additionalProperties": true
-                                    },
-                                    "2": {
-                                        "$id": "#/properties/patterns/items/anyOf/0/properties/captures/properties/2",
-                                        "type": "object",
-                                        "title": "The 2 schema",
-                                        "description": "An explanation about the purpose of this instance.",
-                                        "default": {},
-                                        "examples": [
-                                            {
-                                                "scope": "text.header, color.accent01"
-                                            }
-                                        ],
-                                        "required": [
-                                            "scope"
-                                        ],
-                                        "properties": {
-                                            "scope": {
-                                                "$id": "#/properties/patterns/items/anyOf/0/properties/captures/properties/2/properties/scope",
-                                                "type": "string",
-                                                "title": "The scope schema",
-                                                "description": "An explanation about the purpose of this instance.",
-                                                "default": "",
-                                                "examples": [
-                                                    "text.header, color.accent01"
+                                                    "style.indentString"
                                                 ]
                                             }
                                         },
@@ -411,17 +241,6 @@
                                         "s": "drafts://quickSearch?query=[[value]]",
                                         "url": "[[value_unencoded]]"
                                     }
-                                ],
-                                "required": [
-                                    "",
-                                    "google",
-                                    "wikipedia",
-                                    "u",
-                                    "d",
-                                    "bear",
-                                    "w",
-                                    "s",
-                                    "url"
                                 ],
                                 "properties": {
                                     "": {
@@ -808,133 +627,7 @@
                 ]
             }
         },
-        "indentationPatterns": {
-            "$id": "#/properties/indentationPatterns",
-            "type": "array",
-            "title": "The indentationPatterns schema",
-            "description": "An explanation about the purpose of this instance.",
-            "default": [],
-            "examples": [
-                [
-                    {
-                        "match": "(^\\h*\\* |^\\h*\\- |^\\h*\\+ |^\\h*\\d+\\. |^\\h*>[> ]+).*",
-                        "exclusive": true,
-                        "comment": "Indent Markdown lists and blockquotes",
-                        "captures": {
-                            "1": {
-                                "scope": "style.indentString"
-                            }
-                        }
-                    }
-                ]
-            ],
-            "additionalItems": true,
-            "items": {
-                "$id": "#/properties/indentationPatterns/items",
-                "anyOf": [
-                    {
-                        "$id": "#/properties/indentationPatterns/items/anyOf/0",
-                        "type": "object",
-                        "title": "The first anyOf schema",
-                        "description": "An explanation about the purpose of this instance.",
-                        "default": {},
-                        "examples": [
-                            {
-                                "match": "(^\\h*\\* |^\\h*\\- |^\\h*\\+ |^\\h*\\d+\\. |^\\h*>[> ]+).*",
-                                "exclusive": true,
-                                "comment": "Indent Markdown lists and blockquotes",
-                                "captures": {
-                                    "1": {
-                                        "scope": "style.indentString"
-                                    }
-                                }
-                            }
-                        ],
-                        "required": [
-                            "match",
-                            "exclusive",
-                            "comment",
-                            "captures"
-                        ],
-                        "properties": {
-                            "match": {
-                                "$id": "#/properties/indentationPatterns/items/anyOf/0/properties/match",
-                                "type": "string",
-                                "title": "The match schema",
-                                "description": "An explanation about the purpose of this instance.",
-                                "default": "",
-                                "examples": [
-                                    "(^\\h*\\* |^\\h*\\- |^\\h*\\+ |^\\h*\\d+\\. |^\\h*>[> ]+).*"
-                                ]
-                            },
-                            "exclusive": {
-                                "$id": "#/properties/indentationPatterns/items/anyOf/0/properties/exclusive",
-                                "type": "boolean",
-                                "title": "The exclusive schema",
-                                "description": "An explanation about the purpose of this instance.",
-                                "default": false,
-                                "examples": [
-                                    true
-                                ]
-                            },
-                            "comment": {
-                                "$id": "#/properties/indentationPatterns/items/anyOf/0/properties/comment",
-                                "type": "string",
-                                "title": "The comment schema",
-                                "description": "An explanation about the purpose of this instance.",
-                                "default": "",
-                                "examples": [
-                                    "Indent Markdown lists and blockquotes"
-                                ]
-                            },
-                            "captures": {
-                                "$id": "#/properties/indentationPatterns/items/anyOf/0/properties/captures",
-                                "type": "object",
-                                "title": "The captures schema",
-                                "description": "An explanation about the purpose of this instance.",
-                                "default": {},
-                                "examples": [],
-                                "required": [
-                                    "1"
-                                ],
-                                "properties": {
-                                    "1": {
-                                        "$id": "#/properties/indentationPatterns/items/anyOf/0/properties/captures/properties/1",
-                                        "type": "object",
-                                        "title": "The 1 schema",
-                                        "description": "An explanation about the purpose of this instance.",
-                                        "default": {},
-                                        "examples": [
-                                            {
-                                                "scope": "style.indentString"
-                                            }
-                                        ],
-                                        "required": [
-                                            "scope"
-                                        ],
-                                        "properties": {
-                                            "scope": {
-                                                "$id": "#/properties/indentationPatterns/items/anyOf/0/properties/captures/properties/1/properties/scope",
-                                                "type": "string",
-                                                "title": "The scope schema",
-                                                "description": "An explanation about the purpose of this instance.",
-                                                "default": "",
-                                                "examples": [
-                                                    "style.indentString"
-                                                ]
-                                            }
-                                        },
-                                        "additionalProperties": true
-                                    }
-                                },
-                                "additionalProperties": true
-                            }
-                        },
-                        "additionalProperties": true
-                    }
-                ]
-            }
-        },
+        
         "taskMarkDefinitions": {
             "$id": "#/properties/taskMarkDefinitions",
             "type": "array",
@@ -1128,6 +821,5 @@
                 ]
             }
         }
-    },
-    "additionalProperties": true
+    }
 }
